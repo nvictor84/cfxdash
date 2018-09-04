@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ApiService} from '../services/api.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,11 @@ export class AppComponent {
   currentDealer: any = null;
 
   constructor(private api: ApiService) {
-    this.api.getDealers().then(dealers => {
+
+  }
+
+  getDealers(dealerState) {
+    this.api.getDealers(dealerState).then(dealers => {
       this.dealers = dealers;
     });
   }
@@ -31,5 +36,15 @@ export class AppComponent {
       .then(vehicles => {
         this.vehicles = vehicles;
       });
+  }
+
+  onMapClick(evt) {
+    this.getDealers(evt['state-abbr']);
+  }
+
+  viewStats(year: number, make: string, model: string) {
+    this.api.getVehicleStats(year, make, model).then(stats => {
+      console.log(stats);
+    });
   }
 }

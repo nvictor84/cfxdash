@@ -2,6 +2,7 @@
   <h1 class="title is-1">
     {{ title }}
   </h1>
+  <us-map (onMapClick)="onMapClick($event)" *ngIf="dealers.length <= 0"></us-map>
   <agm-map *ngIf="dealers.length > 0" [latitude]="lat" [longitude]="lng" [zoom]="5">
     <agm-marker *ngFor="let dealer of dealers"
                 [latitude]="strToNumber(dealer.latitude)" [longitude]="strToNumber(dealer.longitude)"
@@ -22,8 +23,9 @@
         <th>Model</th>
         <th>Mileage</th>
         <th>List Price</th>
-        <th>Current Price</th>
-        <th>One Price</th>
+        <!--<th>Current Price</th>-->
+        <!--<th>One Price</th>-->
+        <th>Stats</th>
       </tr>
     </thead>
     <tbody>
@@ -35,12 +37,12 @@
         <td>{{ vehicle.year }}</td>
         <td>{{ vehicle.make }}</td>
         <td>{{ vehicle.model }}</td>
-        <td>{{ vehicle.mileage.toString() }}</td>
-        <td>{{ vehicle.listPrice.toString() }}</td>
-        <td>{{ vehicle.currentPrice.toString() }}</td>
-        <td>{{ vehicle.onePrice.toString() }}</td>
+        <td>{{ vehicle.mileage !== undefined && vehicle.mileage !== null ? vehicle.mileage.toString() : '' }}</td>
+        <td>{{ vehicle.listPrice !== undefined && vehicle.listPrice !== null ? vehicle.listPrice.toString() : '' }}</td>
+        <!--<td>{{ vehicle.currentPrice !== undefined && vehicle.currentPrice !== null ? vehicle.currentPrice.toString() : '' }}</td>-->
+        <!--<td>{{ vehicle.onePrice !== undefined && vehicle.onePrice !== null ? vehicle.onePrice.toString() : '' }}</td>-->
+        <td><button class="button is-info" (click)="viewStats(vehicle.year, vehicle.make, vehicle.model)">Stats</button></td>
       </tr>
     </tbody>
   </table>
 </div>
-

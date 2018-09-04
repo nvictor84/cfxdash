@@ -10,9 +10,9 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  getDealers() {
+  getDealers(dealerState: string) {
     return new Promise((fulfill, reject) => {
-      this.http.get(environment.api_url + '/dealers')
+      this.http.get(environment.api_url + '/dealers/' + dealerState)
         .subscribe(data => {
           fulfill(data['dealers']);
         });
@@ -24,6 +24,15 @@ export class ApiService {
       this.http.get(environment.api_url + '/vehicles/' + dealerId)
         .subscribe(data => {
           fulfill(data['vehicles']);
+        });
+    });
+  }
+
+  getVehicleStats(year, make, model) {
+    return new Promise((fulfill, reject) => {
+      this.http.get(`${environment.api_url}/stats?year=${year}&make=${make}&model=${model}`)
+        .subscribe(data => {
+          fulfill(data);
         });
     });
   }

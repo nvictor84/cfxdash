@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {AgmCoreModule} from '@agm/core';
 import {environment} from '../environments/environment';
+import {UsMapModule} from 'angular-us-map';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {environment} from '../environments/environment';
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: environment.google_maps_key
-    })
+    }),
+    UsMapModule
   ],
   providers: [],
   bootstrap: [AppComponent]
